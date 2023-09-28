@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:06:28 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/09/28 16:28:51 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:09:12 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int main(int argc, char const *argv[])
 	{
 		std::cerr << "Error: " << std::endl;
 		std::cerr << "Usage " << argv[0] << "value_to_convert" << std::endl;
+		return (1);
 	}
 	ScalarConverter::convert(argv[1]);
-	return 0;
+	return (0);
 }
