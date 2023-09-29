@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:13:45 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/09/29 12:01:59 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:34:38 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,50 +33,109 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& b)
 	return (*this);
 }
 
-void	ScalarConverter::convert(std::string value)
+void	ScalarConverter::convert_char(char value)
+{
+	int		iValue = 0;
+	float	fValue = 0.0f;
+	double	dValue = 0.0;
+
+	if (value < 32 || value > 126)
+		std::cout << "char: " << NON_DISPLAY << std::endl;
+	else
+		std::cout << "char: '" << value << "'" << std::endl;
+	iValue = static_cast<int>(value);
+	fValue = static_cast<float>(iValue);
+	dValue = static_cast<double>(iValue);
+	std::cout.setf(std::ios::fixed);
+	std::cout.setf(std::ios::showpoint);
+	std::cout << std::setprecision(1);
+	std::cout << "int: " << std::setw(20) << iValue << std::endl;
+	std::cout << "float: " << std::setw(20) << fValue << "f" << std::endl;
+	std::cout << "double: " << std::setw(20) << dValue << std::endl;
+}
+
+bool ScalarConverter::convert_to_int(int *i, std::string value)
+{
+	try
+	{
+		*i = std::stoi(value);
+		return (false);
+	}
+	catch(const std::exception& e)
+	{
+		*i = 0;
+		return (true);
+	}
+}
+
+bool ScalarConverter::convert_to_double(double *d, std::string value)
+{
+	try
+	{
+		*d = std::stod(value);
+		return (false);
+	}
+	catch(const std::exception& e)
+	{
+		*d = 0.0;
+		return (true);
+	}
+}
+
+void	ScalarConverter::convert_not_char(std::string value)
 {
 	int		iValue = 0;
 	float	fValue = 0.0f;
 	double	dValue = 0.0;
 	char	cValue = 0;
 	bool	iFault = false;
-	bool	fFault = false;
 	bool	dFault = false;
-	bool	cFault = false;
-	try
+
+	dFault = convert_to_double(&dValue, value);
+	if (dFault)
 	{
-		iValue = std::stoi(value);
+		std::cout << "char: " << IMPOSSIBLE << std::endl;
+		std::cout << "int: " << IMPOSSIBLE << std::endl;
+		std::cout << "float: " << IMPOSSIBLE << std::endl;
+		std::cout << "double: " << IMPOSSIBLE << std::endl;
+		return ;
 	}
-	catch(const std::exception& e)
+	fValue = static_cast<float>(dValue);
+	iFault = convert_to_int(&iValue, value);
+	if (iFault)
 	{
-		iFault = true;
+		std::cout << "char: " << IMPOSSIBLE << std::endl;
+		std::cout << "int: " << IMPOSSIBLE << std::endl;
+		std::cout.setf(std::ios::fixed);
+		std::cout.setf(std::ios::showpoint);
+		std::cout << "float: " << std::setprecision(1) << fValue << "f" << std::endl;
+		std::cout << "double: " << std::setprecision(1) << dValue << std::endl;
+		return ;
 	}
-	try
+	if (dValue >= static_cast<double>(-2147483648) && dValue <= static_cast<double>(2147483647))
 	{
-		fValue = std::stof(value);
+		iValue = static_cast<int>(dValue);
+		cValue = static_cast<char>(iValue);
+		if (iValue < 32 || iValue > 126)
+			std::cout << "char: " << NON_DISPLAY << std::endl;
+		else
+			std::cout << "char: '" << cValue << "'" << std::endl;
+		std::cout << "int: " << iValue << std::endl;
 	}
-	catch(const std::exception& e)
-	{
-		fFault = true;
-	}
-	try
-	{
-		dValue = std::stod(value);
-	}
-	catch(const std::exception& e)
-	{
-		dFault = true;
-	}
-	cFault = (value.length() != 1);
-	if (!cFault)
-		cValue = value[0];
-	else if ((long)iValue >= 0x80 && (long)iValue <= 0x7F)
-		cValue = (char)iValue;
-	if (cValue == 0)
-		std::cout << "char: " << "(" << cFault << ") " << NON_DISPLAY << std::endl;
 	else
-		std::cout << "char: " << "(" << cFault << ") '" << cValue << "'" << std::endl;
-	std::cout << "int: " << "(" << iFault << ") " << std::setw(20) << iValue << std::endl;
-	std::cout << "float: " << "(" << fFault << ") " << std::setw(20) << std::setprecision(7) << fValue << std::endl;
-	std::cout << "double: " << "(" << dFault << ") " << std::setw(20) << std::setprecision(16) << dValue << std::endl;
+	{
+		std::cout << "char: " << IMPOSSIBLE << std::endl;
+		std::cout << "int: " << IMPOSSIBLE << std::endl;
+	}
+	std::cout.setf(std::ios::fixed);
+	std::cout.setf(std::ios::showpoint);
+	std::cout << "float: " << std::setprecision(1) << fValue << "f" << std::endl;
+	std::cout << "double: " << std::setprecision(1) << dValue << std::endl;
+}
+
+void	ScalarConverter::convert(std::string value)
+{
+	if (value.length() == 1)
+		return (convert_char(value[0]));
+	return (convert_not_char(value));
 }
