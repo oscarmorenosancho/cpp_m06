@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 14:00:58 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/09/29 15:17:48 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:21:36 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int main(void)
 	{
 		base = Base::generate();
 		Base::identify(base);
+		delete base;
 		i++;
 	}
 	return (0);
