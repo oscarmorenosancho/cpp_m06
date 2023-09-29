@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:13:45 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/09/29 18:34:38 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:47:25 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,12 @@ void	ScalarConverter::convert_not_char(std::string value)
 	std::cout << "double: " << std::setprecision(1) << dValue << std::endl;
 }
 
+void	ScalarConverter::convert(std::string value)
+{
+	if (value.length() == 1)
+		return (convert_char(value[0]));
+	return (convert_not_char(value));
+}
 void	ScalarConverter::convert(std::string value)
 {
 	if (value.length() == 1)
