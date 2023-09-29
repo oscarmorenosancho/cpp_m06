@@ -6,13 +6,13 @@
 #    By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 16:22:46 by omoreno-          #+#    #+#              #
-#    Updated: 2023/09/28 16:13:09 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/09/29 14:08:16 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME:= convert
+NAME:= test
 
-CLASSSRC	:=	ScalarConverter.cpp
+CLASSSRC	:=	Base.cpp
 
 MAINSRC		:=	main.cpp
 
