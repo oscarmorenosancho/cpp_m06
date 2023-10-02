@@ -6,7 +6,7 @@
 #    By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 16:22:46 by omoreno-          #+#    #+#              #
-#    Updated: 2023/09/28 16:13:09 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/10/02 16:19:31 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CLASSDEPS	:= $(addprefix $(BUILD_PATH), $(CLASSSRC:.cpp=.d))
 
 CC			:=	@c++
 RM			:=	@rm -Rf
-CFLAGS		:=	-Wall -Werror -Wextra -std=c++98
+CFLAGS		:=	-Wall -Werror -Wextra -std=c++98 -g
 
 folder_create 	= $(shell mkdir -p $(1))
 
