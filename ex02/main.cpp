@@ -6,23 +6,31 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 14:00:58 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/09/29 15:21:36 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/10/02 13:38:43 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
 #include "Base.hpp"
 
 int main(void)
 {
-	int		i = 0;
+	
 	Base	*base;
 
-	while (i < 20)
+	std::cout << "using identify pointer" << std::endl;
+	for (int i = 0; i < 10; i++)
 	{
 		base = Base::generate();
 		Base::identify(base);
 		delete base;
-		i++;
+	}
+	std::cout << "using identify reference" << std::endl;
+	for (int i = 0; i < 10; i++)
+	{
+		base = Base::generate();
+		Base::identify(base);
+		delete base;
 	}
 	return (0);
 }
