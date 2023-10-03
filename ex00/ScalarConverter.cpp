@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:13:45 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/10/03 11:47:00 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:02:04 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ ScalarConverter::t_counts	ScalarConverter::counts(std::string value)
 			counts.spaces++;
 			continue;
 		}
-		if (c > '0' && c < '9')
+		if (c >= '0' && c <= '9')
 		{
 			counts.digits++;
 			continue;
