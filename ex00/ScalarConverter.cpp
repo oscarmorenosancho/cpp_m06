@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:13:45 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/10/02 18:19:44 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/10/03 11:47:00 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ ScalarConverter::t_counts	ScalarConverter::counts(std::string value)
 			counts.dots++;
 			continue;
 		}
-		if ((c > 'A' && c < 'Z') || (c > 'a' && c < 'z'))
+		if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
 		{
 			counts.alphas++;
 			continue;
@@ -107,31 +107,77 @@ ScalarConverter::t_counts	ScalarConverter::counts(std::string value)
 	return (counts);
 }
 
+void ScalarConverter::split_exp(std::string value, std::string& man, std::string& exp)
+{
+	size_t	i = 0;
+	bool	e_found = false;
+
+	man = "";
+	exp = "";
+	while (value[i])
+	{
+		if (value[i] == 'e' || value[i] == 'E')
+			e_found = true;
+		else
+		{
+			if (!e_found)
+				man += value[i];
+			else
+				exp += value[i];
+		}
+		i++;
+	}	
+}
+
+ScalarConverter::t_type	ScalarConverter::identify_exp(std::string value)
+{
+	std::string	man;
+	std::string	exp;
+
+	split_exp(value, man, exp);
+	t_counts man_counted = counts(man);
+	t_counts exp_counted = counts(exp);
+	if (man_counted.signs > 1 || (man_counted.signs == 1 && !(man[0] == '-' || man[0] == '+'))
+		|| (exp_counted.signs > 1 || (exp_counted.signs == 1 && !(exp[0] == '-' || exp[0] == '+')))
+		|| exp_counted.dots > 0 || man_counted.floats > 0)
+		return (TYPE_INVALID);
+	if (exp_counted.floats == 0)
+		return (TYPE_DOUBLE);
+	if (exp_counted.floats == 1 && (exp[exp.length()-1] == 'f' || (exp[exp.length()-1] == 'F')))
+		return (TYPE_FLOAT);
+	return (TYPE_INVALID);
+}
 
 ScalarConverter::t_type	ScalarConverter::identify(std::string value)
 {
 	if (value.length() == 1)
 		return (TYPE_CHAR);
 	t_counts counted = counts(value);
-	if (counted.alphas == 0 && counted.exps == 0 &&
-		counted.floats == 0 && counted.spaces == 0 && counted.digits > 0
-		&& counted.dots == 0 && (counted.signs == 0 ||
-		(counted.signs == 1 && (value[0] == '-' || value[0] == '+'))))
-		return (TYPE_INT);
-	if (counted.alphas == 0 && counted.exps < 2 && counted.floats == 1 && 
-		(value[value.length()-1] == 'f' || (value[value.length()-1] == 'F'))
-		&& counted.signs < 3 && counted.dots < 2 && counted.spaces == 0)
-		return (TYPE_FLOAT);
-	if (counted.alphas == 0 && counted.exps < 2 &&
-		counted.floats == 0 && counted.signs < 3 &&
-		counted.dots < 2 && counted.spaces == 0)
-		return (TYPE_DOUBLE);
-	return (TYPE_INVALID);
+	if (counted.spaces > 0 || counted.alphas > 0 || counted.exps > 1
+		|| counted.floats > 1 || counted.dots > 1 || counted.signs > 2)
+		return (TYPE_INVALID);
+	if (counted.exps == 0)
+	{
+		if (counted.floats == 0 && counted.digits > 0
+			&& (counted.signs == 0 || (counted.signs == 1 && (value[0] == '-' || value[0] == '+')))
+			&& counted.dots == 0)
+			return (TYPE_INT);
+		if (counted.floats == 1
+			&& (value[value.length()-1] == 'f' || (value[value.length()-1] == 'F'))
+			&& (counted.signs == 0 || (counted.signs == 1 && (value[0] == '-' || value[0] == '+')))
+			&& counted.dots < 2)
+			return (TYPE_FLOAT);
+		if (counted.floats == 0
+			&& (counted.signs == 0 || (counted.signs == 1 && (value[0] == '-' || value[0] == '+')))
+			&&	counted.dots < 2)
+			return (TYPE_DOUBLE);
+	}
+	return (identify_exp(value));
 }
 
 void	ScalarConverter::print_char(char cV)
 {
-	if (cV > ' ')
+	if ((cV > ' ') && (cV < 127))
 		std::cout << "char: " << cV << std::endl;
 	else
 		std::cout << "char: " << NON_DISPLAY << std::endl;

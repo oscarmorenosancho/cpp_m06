@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:13:40 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/10/02 17:26:29 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/10/03 10:31:21 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ private:
 	static void			show_double(std::string trimmed);
 	static std::string	trim(std::string value);
 	static t_counts		counts(std::string value);
+	static void			split_exp(std::string value,
+									std::string& man, std::string& exp);
+	static t_type		identify_exp(std::string value);
 	static t_type		identify(std::string value);
 public:
 	static void	convert(std::string value);
