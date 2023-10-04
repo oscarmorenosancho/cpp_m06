@@ -6,13 +6,13 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:13:45 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/10/03 15:02:04 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:48:49 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScalarConverter.hpp"
 #include <iostream>
 #include <iomanip>
+#include <ScalarConverter.hpp>
 
 ScalarConverter::ScalarConverter()
 {

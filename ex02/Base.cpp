@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 13:24:30 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/10/02 13:32:11 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:50:17 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include <cstdlib>
 #include <chrono>
 #include <ctime>
-#include "Base.hpp"
-#include "A.hpp"
-#include "B.hpp"
-#include "C.hpp"
+#include <Base.hpp>
+#include <A.hpp>
+#include <B.hpp>
+#include <C.hpp>
 
 
 Base::~Base()

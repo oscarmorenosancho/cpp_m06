@@ -6,12 +6,12 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:06:28 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/09/29 16:30:27 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:48:16 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include "ScalarConverter.hpp"
+#include <ScalarConverter.hpp>
 
 int main(int argc, char const *argv[])
 {

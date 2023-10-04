@@ -6,13 +6,14 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 13:36:53 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/09/29 14:35:18 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/10/04 14:05:29 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef _C_HPP_
 # define _C_HPP_
-# include "Base.hpp"
+# include <Base.hpp>
+
 class C : public Base
 {
 };

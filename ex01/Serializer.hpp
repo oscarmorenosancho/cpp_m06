@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:13:40 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/09/29 12:58:21 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/10/04 13:49:28 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define _SERILIZER_HPP_
 
 #include <string>
-#include "Data.hpp"
+#include <Data.hpp>
 #define NON_DISPLAY "Non displayable"
 #define IMPOSIBLE "impossible"
 
