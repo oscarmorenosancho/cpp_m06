@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:13:45 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/10/04 13:48:49 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/10/04 17:40:27 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,12 @@ ScalarConverter::t_type	ScalarConverter::identify(std::string value)
 {
 	if (value.length() == 1)
 		return (TYPE_CHAR);
+	if (value == "inf" || value == "-inf" || value == "+inf" ||
+		value == "nan" || value == "-nan" || value == "+nan")
+			return (TYPE_DOUBLE);
+	if (value == "inff" || value == "-inff" || value == "+inff" ||
+		value == "nanf" || value == "-nanf" || value == "+nanf")
+			return (TYPE_FLOAT);
 	t_counts counted = counts(value);
 	if (counted.spaces > 0 || counted.alphas > 0 || counted.exps > 1
 		|| counted.floats > 1 || counted.dots > 1 || counted.signs > 2)

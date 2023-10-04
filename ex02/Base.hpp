@@ -6,7 +6,7 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 13:20:36 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/09/29 14:04:22 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:00:07 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 class Base
 {
 public:
-	virtual ~Base();
-	static Base* generate(void);
-	static void identify(Base* p);
-	static void identify(Base& p);
+	virtual ~Base(){};
 };
+
+Base* generate(void);
+void identify(Base* p);
+void identify(Base& p);
 
 #endif

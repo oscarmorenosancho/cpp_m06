@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Base.cpp                                           :+:      :+:    :+:   */
+/*   Functions.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/29 13:24:30 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/10/04 13:50:17 by omoreno-         ###   ########.fr       */
+/*   Created: 2023/10/04 17:56:20 by omoreno-          #+#    #+#             */
+/*   Updated: 2023/10/04 17:56:41 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@
 #include <B.hpp>
 #include <C.hpp>
 
-
-Base::~Base()
-{}
-Base* Base::generate(void)
+Base* generate(void)
 {
 	std::chrono::system_clock::time_point 	cur;
  	static long								*seed;
@@ -39,7 +36,7 @@ Base* Base::generate(void)
 	return (new C);
 }
 
-void Base::identify(Base* p)
+void identify(Base* p)
 {
 	if (dynamic_cast<A*>(p))
 		std::cout << "A" << std::endl;
@@ -51,7 +48,7 @@ void Base::identify(Base* p)
 		std::cout << "Not recognized" << std::endl;
 }
 
-void Base::identify(Base& p)
+void identify(Base& p)
 {
 	try
 	{
@@ -88,37 +85,3 @@ void Base::identify(Base& p)
 	}
 	std::cout << "Not recognized" << std::endl;
 }
-
-// void Base::identify(Base* p)
-// {
-// 	std::string	t;
-// 	int			count;
-	
-// 	t = typeid(*p).name();
-// 	try
-// 	{
-// 		count = (std::to_string(stoi(t))).length();
-// 	}
-// 	catch(const std::exception& e)
-// 	{
-// 		count = 0;
-// 	}
-// 	std::cout << t.c_str() + count << std::endl;
-// }
-
-// void Base::identify(Base& p)
-// {
-// 	std::string	t;
-// 	int			count;
-	
-// 	t = typeid(p).name();
-// 	try
-// 	{
-// 		count = (std::to_string(stoi(t))).length();
-// 	}
-// 	catch(const std::exception& e)
-// 	{
-// 		count = 0;
-// 	}
-// 	std::cout << t.c_str() + count << std::endl;
-// }

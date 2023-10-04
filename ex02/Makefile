@@ -6,18 +6,19 @@
 #    By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/22 16:22:46 by omoreno-          #+#    #+#              #
-#    Updated: 2023/10/04 13:47:58 by omoreno-         ###   ########.fr        #
+#    Updated: 2023/10/04 17:57:03 by omoreno-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME:= test
 
-CLASSSRC	:=	Base.cpp
+#CLASSSRC	:=	Base.cpp
 
-MAINSRC		:=	main.cpp
+MAINSRC		:=	main.cpp Functions.cpp
 
 BUILD_PATH	:= .build/
-HEADER		:=	$(CLASSSRC:.cpp=.hpp)
+#HEADER		:=	$(CLASSSRC:.cpp=.hpp)
+HEADER		:= Base.hpp A.hpp B.hpp C.hpp
 
 MAINOBJ		:= $(addprefix $(BUILD_PATH), $(MAINSRC:.cpp=.o))
 CLASSOBJ	:= $(addprefix $(BUILD_PATH), $(CLASSSRC:.cpp=.o))
