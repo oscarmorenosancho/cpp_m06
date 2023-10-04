@@ -6,12 +6,13 @@
 /*   By: omoreno- <omoreno-@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:13:45 by omoreno-          #+#    #+#             */
-/*   Updated: 2023/10/04 17:40:27 by omoreno-         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:17:25 by omoreno-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <iomanip>
+#include <math.h>
 #include <ScalarConverter.hpp>
 
 ScalarConverter::ScalarConverter()
@@ -141,11 +142,51 @@ ScalarConverter::t_type	ScalarConverter::identify_exp(std::string value)
 		|| (exp_counted.signs > 1 || (exp_counted.signs == 1 && !(exp[0] == '-' || exp[0] == '+')))
 		|| exp_counted.dots > 0 || man_counted.floats > 0)
 		return (TYPE_INVALID);
-	if (exp_counted.floats == 0)
+	if (exp_counted.floats == 0 && check_double_cast(value))
 		return (TYPE_DOUBLE);
-	if (exp_counted.floats == 1 && (exp[exp.length()-1] == 'f' || (exp[exp.length()-1] == 'F')))
+	if (exp_counted.floats == 1 && (exp[exp.length()-1] == 'f' || (exp[exp.length()-1] == 'F'))
+		&& check_float_cast(value))
 		return (TYPE_FLOAT);
 	return (TYPE_INVALID);
+}
+
+bool	ScalarConverter::check_int_cast(std::string value)
+{
+	try
+	{
+		stoi(value);
+		return (true);
+	}
+	catch(const std::exception& e)
+	{
+		return (false);
+	}
+}
+
+bool	ScalarConverter::check_float_cast(std::string value)
+{
+	try
+	{
+		stof(value);
+		return (true);
+	}
+	catch(const std::exception& e)
+	{
+		return (false);
+	}
+}
+
+bool	ScalarConverter::check_double_cast(std::string value)
+{
+	try
+	{
+		stod(value);
+		return (true);
+	}
+	catch(const std::exception& e)
+	{
+		return (false);
+	}
 }
 
 ScalarConverter::t_type	ScalarConverter::identify(std::string value)
@@ -166,16 +207,16 @@ ScalarConverter::t_type	ScalarConverter::identify(std::string value)
 	{
 		if (counted.floats == 0 && counted.digits > 0
 			&& (counted.signs == 0 || (counted.signs == 1 && (value[0] == '-' || value[0] == '+')))
-			&& counted.dots == 0)
+			&& counted.dots == 0 && check_int_cast(value))
 			return (TYPE_INT);
 		if (counted.floats == 1
 			&& (value[value.length()-1] == 'f' || (value[value.length()-1] == 'F'))
 			&& (counted.signs == 0 || (counted.signs == 1 && (value[0] == '-' || value[0] == '+')))
-			&& counted.dots < 2)
+			&& counted.dots < 2 && check_float_cast(value))
 			return (TYPE_FLOAT);
 		if (counted.floats == 0
 			&& (counted.signs == 0 || (counted.signs == 1 && (value[0] == '-' || value[0] == '+')))
-			&&	counted.dots < 2)
+			&&	counted.dots < 2 && check_double_cast(value))
 			return (TYPE_DOUBLE);
 	}
 	return (identify_exp(value));
@@ -247,10 +288,7 @@ void	ScalarConverter::show_char(std::string trimmed)
 
 void	ScalarConverter::show_int(std::string trimmed)
 {
-	char	cV;
 	int		iV;
-	float	fV;
-	double	dV;
 	try
 	{
 		iV = std::stoi(trimmed);
@@ -260,25 +298,19 @@ void	ScalarConverter::show_int(std::string trimmed)
 		print_all_impossible();
 		return ;
 	}
-	cV = static_cast<char>(iV);
-	fV = static_cast<float>(iV);
-	dV = static_cast<double>(iV);
 	// std::cout << "identified as int: \n";
 	if (iV < 0 || iV > 255)
 		std::cout << "char: " << IMPOSSIBLE << std::endl;
 	else
-		print_char(cV);
+		print_char(static_cast<char>(iV));
 	print_int(iV);
-	print_float(fV);
-	print_double(dV);
+	print_float(static_cast<float>(iV));
+	print_double(static_cast<double>(iV));
 }
 
 void	ScalarConverter::show_float(std::string trimmed)
 {
-	char	cV;
-	int		iV;
 	float	fV;
-	double	dV;
 	try
 	{
 		fV = std::stof(trimmed);
@@ -288,27 +320,21 @@ void	ScalarConverter::show_float(std::string trimmed)
 		print_all_impossible();
 		return ;
 	}
-	cV = static_cast<char>(fV);
-	iV = static_cast<int>(fV);
-	dV = static_cast<double>(fV);
 	// std::cout << "identified as float: \n";
-	if (fV < 0.0f || fV > 255.0f)
+	if (fV < 0.0f || fV > 255.0f || fV!=fV)
 		std::cout << "char: " << IMPOSSIBLE << std::endl;
 	else
-		print_char(cV);
-	if (fV < -2147483648.0 || fV > 2147483647.0)
+		print_char(static_cast<char>(fV));
+	if (fV < -2147483648.0f || fV > 2147483647.0f || fV!=fV)
 		std::cout << "int: " << IMPOSSIBLE << std::endl;
 	else
-		print_int(iV);
+		print_int(static_cast<int>(fV));
 	print_float(fV);
-	print_double(dV);
+	print_double(static_cast<double>(fV));
 }
 
 void	ScalarConverter::show_double(std::string trimmed)
 {
-	char	cV;
-	int		iV;
-	float	fV;
 	double	dV;
 	try
 	{
@@ -319,19 +345,16 @@ void	ScalarConverter::show_double(std::string trimmed)
 		print_all_impossible();
 		return ;
 	}
-	cV = static_cast<char>(dV);
-	iV = static_cast<int>(dV);
-	fV = static_cast<float>(dV);
 	// std::cout << "identified as double: \n";
-	if (dV < 0.0 || dV > 255.0)
+	if (dV < 0.0 || dV > 255.0 || dV!=dV)
 		std::cout << "char: " << IMPOSSIBLE << std::endl;
 	else
-		print_char(cV);
-	if (dV < -2147483648.0 || dV > 2147483647.0)
+		print_char(static_cast<char>(dV));
+	if (dV < -2147483648.0 || dV > 2147483647.0 || dV!=dV)
 		std::cout << "int: " << IMPOSSIBLE << std::endl;
 	else
-		print_int(iV);
-	print_float(fV);
+		print_int(static_cast<int>(dV));
+	print_float(static_cast<float>(dV));
 	print_double(dV);
 }
 
